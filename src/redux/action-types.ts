@@ -1,0 +1,7 @@
+export const ADD_ALL_LISTS = 'ADD_ALL_LISTS'
+export const DELETE_LIST = 'DELETE_LISt'
+export const ADD_LIST = 'ADD_LIST'
+export const UPDATE_LIST = 'UPDATE_LIST'
+export const ADD_TASK = 'ADD_TASK'
+export const DELETE_TASK = 'DELETE_TASK'
+export const UPDATE_TASK = 'UPDATE_TASK'
