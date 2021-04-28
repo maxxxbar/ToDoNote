@@ -1,7 +1,7 @@
 import axios, {AxiosInstance} from "axios";
 import {Lists} from "../entities/lists";
 import {ResponseList} from "../entities/response-list";
-import {addList, addTask, deleteTask, updateList, updateTask} from "../redux/actions/lists-actions";
+import {addList, addTask, deleteList, deleteTask, updateList, updateTask} from "../redux/actions/lists-actions";
 import {Category} from "../entities/category";
 import {Task} from "../entities/task";
 
@@ -36,18 +36,18 @@ export class Api {
             .catch(reason => console.log(reason))
     }
 
-    deleteCategory(id: number) {
+    deleteCategory(id: number, delCat: typeof deleteList) {
         this.instance
             .delete(`/list/${id}`)
-            .then(value => console.log(value))
+            .then(() => delCat(id))
             .catch(reason => console.log('API deleteCategory then', reason))
     }
 
-    addTask(text: string, listId: number, addNote: typeof addTask) {
+    addTask(text: string, listId: number, addNote?: typeof addTask) {
         this.instance
             .post(`/list/${listId}/todo`, {text: text})
             .then((value: { data: Task }) => {
-                addNote(value.data, listId)
+                addNote?.(value.data, listId)
             })
             .catch(reason => console.log(reason))
 
@@ -63,11 +63,11 @@ export class Api {
             .catch(reason => console.log(reason))
     }
 
-    deleteTask(task: Task, delTask: typeof deleteTask) {
+    deleteTask(task: Task, delTask?: typeof deleteTask) {
         this.instance
             .delete(`/list/${task.list_id}/todo/${task.id}`)
             .then(() => {
-                delTask(task)
+                delTask?.(task)
             })
             .catch(reason => console.log(reason))
     }

@@ -6,8 +6,8 @@ import {Task} from "../../entities/task";
 export const addAllLists = (lists: Lists[]) => (
     {type: ADD_ALL_LISTS, payload: lists} as const)
 
-export const deleteList = (list: Lists) => (
-    {type: DELETE_LIST, payload: list} as const)
+export const deleteList = (listId: number) => (
+    {type: DELETE_LIST, payload: listId} as const)
 
 export const addList = (list: Lists) => (
     {type: ADD_LIST, payload: list} as const

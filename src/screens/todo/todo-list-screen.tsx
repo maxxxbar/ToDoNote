@@ -137,9 +137,7 @@ class TodoListScreen extends Component<IProps, IState> {
                             api.updateList(category, updateList)
                         }}
                         toDelete={(id) => {
-                            api.deleteCategory(id)
-                            const item = this.props.lists.find(value => value.id === id)
-                            if (item) this.props.deleteList(item)
+                            api.deleteCategory(id, this.props.deleteList)
                         }}
                         addedSuccessfully={(it) => {
                             api.createList(it, this.props.addList)

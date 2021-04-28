@@ -135,23 +135,37 @@ class TaskScreen extends Component<IProps, IState> {
     private updateHandler = () => {
         if (this.props.route.params) {
             this.setCurrentTask(this.props.route.params)
-            this.setUpdate(true)
-            this.setText(this.props.route.params.text)
             this.setCurrentCategory(this.props.route.params.list_id)
+            this.setText(this.props.route.params.text)
+            this.setUpdate(true)
+        }
+    }
+
+    private updateCurrentTask = (text: string, task: Task) => {
+        if (task.list_id !== this.state.currentCategory) {
+            this.api.deleteTask(this.state.currentTask!!, this.props.deleteTask)
+            this.api.addTask(text, this.state.currentCategory, this.props.addTask)
+        } else {
+            this.api.updateTask({
+                ...task,
+                text: text,
+                list_id: this.state.currentCategory
+            }, this.props.updateTask)
         }
     }
 
     private editTask = () => {
-        const t = this.state.text.trim()
-        if (t && this.state.currentCategory > 0) {
+        const textValue = this.state.text.trim()
+        if (textValue && this.state.currentCategory > 0) {
             if (this.state.thisUpdate && this.state.currentTask) {
-                this.api.deleteTask(this.state.currentTask, this.props.deleteTask)
+                this.updateCurrentTask(textValue, this.state.currentTask)
+            } else {
+                this.api.addTask(textValue, this.state.currentCategory, this.props.addTask)
             }
-            this.api.addTask(t, this.state.currentCategory, this.props.addTask)
             this.setErrorText('Успешно')
             this.props.navigation.goBack()
         } else {
-            if (!t) {
+            if (!textValue) {
                 this.setErrorText('Введите текст')
             } else if (this.state.currentCategory < 0) {
                 this.setErrorText('Выберите категорию')
