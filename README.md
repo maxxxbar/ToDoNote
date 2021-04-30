@@ -13,8 +13,8 @@
 - Выполнение задачи.
 
 
-  [Open project in **Expo**](https://expo.io/@maxim_b/projects/ToDoNote)
-  
+[Open project in **Expo**](https://expo.io/@maxim_b/projects/ToDoNote)
+
 ### Preview
 ****
 ![](https://i.ibb.co/pz4mMB2/Screenshot-1619771721.png)
